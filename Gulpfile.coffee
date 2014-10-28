@@ -1,5 +1,5 @@
 gulp = require 'gulp'
-connect = require 'gulp-connect'
+webserver = require('gulp-webserver')
 coffee = require 'gulp-coffee'
 sass = require 'gulp-ruby-sass'
 jade = require 'gulp-jade'
@@ -29,14 +29,9 @@ gulp.task 'scripts', ->
 			debug: true
 			transform: 'coffeeify'
 			extensions: '.coffee'
-
-			shim:
-				react:
-					path: 'lib/react.js'
-					exports: 'react'
 		.pipe rename 'main.js'
 		.pipe gulp.dest 'public/js'
-		.pipe connect.reload()
+		#.pipe connect.reload()
 
 gulp.task 'styles', ->
 	gulp.src path.process.styles
@@ -45,7 +40,7 @@ gulp.task 'styles', ->
 			#sourcemap: true
 			lineNumbers: true
 		.pipe gulp.dest 'public/css'
-		.pipe connect.reload()
+		#.pipe connect.reload()
 
 gulp.task 'views', ->
 	gulp.src path.process.views
@@ -53,7 +48,7 @@ gulp.task 'views', ->
 		.pipe jade
 			pretty: true
 		.pipe gulp.dest 'public'
-		.pipe connect.reload()
+		#.pipe connect.reload()
 
 # Misc tasks
 gulp.task 'clean', ->
@@ -61,12 +56,13 @@ gulp.task 'clean', ->
 		.pipe clean()
 
 gulp.task 'connect', ->
-	connect.server
-		root: path.app
-		port: 8080
-		livereload: true
-		middleware: ->
-			[historyApiFallback]	# This allows for requests being sent to index.html
+	gulp.src path.app
+		.pipe webserver
+			root: path.app
+			port: 8080
+			livereload: true
+			open: true
+			fallback: 'index.html'
 
 gulp.task 'watch', ->
 	gulp.watch path.watch.scripts, ['scripts']

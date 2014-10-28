@@ -1,4 +1,4 @@
-require 'react'
-Login = require './components/Login'
+React = require 'react'
+Rewards = require './components/Rewards'
 
-React.renderComponent Login(), document.body
+React.renderComponent Rewards(), document.body
