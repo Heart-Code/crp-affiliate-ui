@@ -4,7 +4,7 @@ Lazy = require 'Lazy.js'
 
 {div, label, input, ul, li, img} = React.DOM
 
-Rewards = React.createClass
+RewardList = React.createClass
 	getInitialState: ->
 		searchString: ''
 		rewards: []
@@ -31,4 +31,4 @@ Rewards = React.createClass
 					img src: r.img
 					" #{r.name} - #{r.points}"
 
-module.exports = Rewards
+module.exports = RewardList
