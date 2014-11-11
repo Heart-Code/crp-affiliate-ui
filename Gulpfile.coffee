@@ -64,9 +64,18 @@ gulp.task 'connect', ->
 			open: true
 			fallback: 'index.html'
 
+gulp.task 'connect-prod', ->
+	gulp.src path.app
+		.pipe webserver
+			root: path.app
+			port: 8080
+			fallback: 'index.html'
+
 gulp.task 'watch', ->
 	gulp.watch path.watch.scripts, ['scripts']
 	gulp.watch path.watch.styles, ['styles']
 	gulp.watch path.watch.views, ['views']
 
 gulp.task 'default', ['scripts', 'styles', 'views', 'connect', 'watch']
+
+gulp.task 'start', ['scripts', 'styles', 'views', 'connect-prod']
