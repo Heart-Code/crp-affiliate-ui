@@ -1,5 +1,5 @@
 gulp = require 'gulp'
-webserver = require('gulp-webserver')
+webserver = require 'gulp-webserver'
 coffee = require 'gulp-coffee'
 sass = require 'gulp-ruby-sass'
 jade = require 'gulp-jade'
@@ -31,7 +31,6 @@ gulp.task 'scripts', ->
 			extensions: '.coffee'
 		.pipe rename 'main.js'
 		.pipe gulp.dest 'public/js'
-		#.pipe connect.reload()
 
 gulp.task 'styles', ->
 	gulp.src path.process.styles
@@ -40,7 +39,6 @@ gulp.task 'styles', ->
 			#sourcemap: true
 			lineNumbers: true
 		.pipe gulp.dest 'public/css'
-		#.pipe connect.reload()
 
 gulp.task 'views', ->
 	gulp.src path.process.views
@@ -48,7 +46,27 @@ gulp.task 'views', ->
 		.pipe jade
 			pretty: true
 		.pipe gulp.dest 'public'
-		#.pipe connect.reload()
+
+gulp.task 'scripts-prod', ->
+	gulp.src path.process.scripts, read: false
+		.pipe plumber()
+		.pipe browserify
+			transform: 'coffeeify'
+			extensions: '.coffee'
+		.pipe rename 'main.js'
+		.pipe gulp.dest 'public/js'
+
+gulp.task 'styles-prod', ->
+	gulp.src path.process.styles
+		.pipe plumber()
+		.pipe sass()
+		.pipe gulp.dest 'public/css'
+
+gulp.task 'views-prod', ->
+	gulp.src path.process.views
+		.pipe plumber()
+		.pipe jade()
+		.pipe gulp.dest 'public'
 
 # Misc tasks
 gulp.task 'clean', ->
@@ -77,5 +95,4 @@ gulp.task 'watch', ->
 	gulp.watch path.watch.views, ['views']
 
 gulp.task 'default', ['scripts', 'styles', 'views', 'connect', 'watch']
-gulp.task 'start', ['scripts', 'styles', 'views', 'connect-prod']
-gulp.task 'build', ['scripts', 'styles', 'views']
+gulp.task 'build', ['scripts-prod', 'styles-prod', 'views-prod']

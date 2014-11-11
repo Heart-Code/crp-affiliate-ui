@@ -1,6 +1,6 @@
 React = require 'react'
 request = require 'superagent'
-Lazy = require 'Lazy.js'
+Lazy = require 'lazy.js'
 
 {div, label, input, ul, li, img} = React.DOM
 
