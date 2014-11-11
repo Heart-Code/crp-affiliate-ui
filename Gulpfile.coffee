@@ -77,5 +77,5 @@ gulp.task 'watch', ->
 	gulp.watch path.watch.views, ['views']
 
 gulp.task 'default', ['scripts', 'styles', 'views', 'connect', 'watch']
-
 gulp.task 'start', ['scripts', 'styles', 'views', 'connect-prod']
+gulp.task 'build', ['scripts', 'styles', 'views']
