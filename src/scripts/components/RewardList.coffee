@@ -10,7 +10,7 @@ RewardList = React.createClass
 		rewards: []
 	componentDidMount: ->
 		request
-			.get 'http://localhost:3000/rewards'
+			.get 'http://api.crp.eridlabs.com/rewards'
 			.end (res) =>
 				@setState rewards: res.body
 	handleChange: (e) ->
