@@ -11,7 +11,7 @@ Dashboard = require './components/Dashboard'
 RewardList = require './components/RewardList'
 
 routes =
-	Routes location: 'history',
+	Routes null,
 		Route handler: MainPage,
 			DefaultRoute handler: Dashboard
 			Route path: 'rewards', handler: RewardList
