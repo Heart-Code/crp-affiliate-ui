@@ -1,5 +1,6 @@
 React = require 'react'
 TopMenu = require '../components/TopMenu'
+BottomMenu = require '../components/BottomMenu'
 
 {div} = React.DOM
 
@@ -7,7 +8,8 @@ TopMenu = require '../components/TopMenu'
 MainPage = React.createClass
 	render: ->
 		div className: 'main-page',
-			TopMenu(),
+			TopMenu()
 			@props.activeRouteHandler()
+			BottomMenu()
 
 module.exports = MainPage

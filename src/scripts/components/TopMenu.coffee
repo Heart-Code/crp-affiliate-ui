@@ -1,7 +1,7 @@
 React = require 'react'
 {Link} = require 'react-router'
 
-{div, ul, li, a} = React.DOM
+{div, a, label, aside, nav, section, i, span, ul, li} = React.DOM
 
 TopMenu = React.createClass
 	getInitialState: ->
@@ -11,9 +11,19 @@ TopMenu = React.createClass
 			{ name: 'Rewards', url: '/rewards'}
 		]
 	render: ->
-		div className: 'top-menu',
-			ul null, @state.items.map (i) ->
-				li null,
-					Link to: i.url, "#{i.name}"
+		div className: 'off-canvas-wrap',
+			div className: 'inner-wrap',
+				nav className: 'tab-bar',
+					section className: 'left-small',
+						i className: 'fi-home'
+					section className: 'middle tab-bar-section',
+						'TITLE HEAR'
+					section className: 'right-small',
+						a className: 'right-off-canvas-toggle menu-icon', span()
+				aside className: 'right-off-canvas-menu',
+					ul className: 'off-canvas-list',
+						@state.items.map (item) ->
+							li null,
+								Link to: item.url
 
 module.exports = TopMenu
