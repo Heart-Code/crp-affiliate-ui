@@ -8,9 +8,9 @@ RewardList = React.createClass
 	getInitialState: ->
 		searchString: ''
 		affiliates: [
-			{ name: 'Taco Bell', description: 'asdf', img: 'taco_bell.jpg' }
-			{ name: 'Adidas', description: 'asdf', img: 'adidas.jpg' }
-			{ name: 'Orlando', description: 'asdf', img: 'orlando.jpg' }
+			{ name: 'Taco Bell', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', img: 'taco_bell.jpg' }
+			{ name: 'Adidas', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', img: 'adidas.jpg' }
+			{ name: 'Orlando', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', img: 'orlando.jpg' }
 		]
 	componentDidMount: ->
 		###
@@ -30,13 +30,16 @@ RewardList = React.createClass
 			affiliates = affiliates.toArray()
 
 		div className: 'crp-affiliates',
-			label htmlFor: 'search-string', 'Search'
-			input type: 'text', id: 'search-string', value: @state.searchString, onChange: @handleChange
+			div className: 'row collapse',
+				div className: 'small-3 columns',
+					label className: 'prefix', htmlFor: 'search-string', 'Search'
+				div className: 'small-9 columns',
+					input type: 'text', id: 'search-string', value: @state.searchString, onChange: @handleChange
 			ul className: 'crp-affiliates-list', affiliates.map (affiliate) ->
 				li className: 'crp-affiliates-item',
 					img src: "/img/#{affiliate.img}"
 					div className: 'crp-container',
-						p null, affiliate.name
-						p null, affiliate.description
+						p className: 'crp-affiliate-name', affiliate.name
+						p className: 'crp-affiliate-description', affiliate.description
 
 module.exports = RewardList

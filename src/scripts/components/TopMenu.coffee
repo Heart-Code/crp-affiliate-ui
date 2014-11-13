@@ -10,6 +10,7 @@ TopMenu = React.createClass
 			{ name: 'Home', url: '/'}
 			{ name: 'Rewards', url: '/rewards'}
 		]
+		title: 'Affiliates'
 	render: ->
 		div className: 'off-canvas-wrap',
 			div className: 'inner-wrap',
@@ -17,7 +18,7 @@ TopMenu = React.createClass
 					section className: 'left-small',
 						i className: 'fi-home'
 					section className: 'middle tab-bar-section',
-						'TITLE HEAR'
+						@state.title
 					section className: 'right-small',
 						a className: 'right-off-canvas-toggle menu-icon', span()
 				aside className: 'right-off-canvas-menu',
