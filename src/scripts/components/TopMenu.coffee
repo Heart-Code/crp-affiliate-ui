@@ -10,21 +10,21 @@ TopMenu = React.createClass
 			{ name: 'Home', url: '/'}
 			{ name: 'Rewards', url: '/rewards'}
 		]
-		title: 'Affiliates'
+	onMenuClick: ->
+		@props.onToggleMenu?()
 	render: ->
-		div className: 'off-canvas-wrap',
-			div className: 'inner-wrap',
-				nav className: 'tab-bar',
-					section className: 'left-small',
-						i className: 'fi-home'
-					section className: 'middle tab-bar-section',
-						@state.title
-					section className: 'right-small',
-						a className: 'right-off-canvas-toggle menu-icon', span()
-				aside className: 'right-off-canvas-menu',
-					ul className: 'off-canvas-list',
-						@state.items.map (item) ->
-							li null,
-								Link to: item.url
+		div className: 'top-menu',
+			nav className: 'tab-bar',
+				section className: 'left-small',
+					i className: 'fi-home'
+				section className: 'middle tab-bar-section',
+					@props.title
+				section className: 'right-small',
+					a className: 'right-off-canvas-toggle menu-icon', onClick: @onMenuClick, span()
+			aside className: 'right-off-canvas-menu',
+				ul className: 'off-canvas-list',
+					@state.items.map (item) ->
+						li null,
+							Link to: item.url, item.name
 
 module.exports = TopMenu

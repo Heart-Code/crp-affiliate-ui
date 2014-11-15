@@ -4,7 +4,9 @@ Lazy = require 'lazy.js'
 
 {div, label, input, ul, li, img, span, p} = React.DOM
 
-RewardList = React.createClass
+AffiliateList = React.createClass
+	statics:
+		test: 'asd'
 	getInitialState: ->
 		searchString: ''
 		affiliates: [
@@ -22,8 +24,8 @@ RewardList = React.createClass
 	handleChange: (e) ->
 		@setState searchString: e.target.value
 	render: ->
-		affiliates = @state.affiliates
 		searchString = @state.searchString.trim().toLowerCase()
+		affiliates = @state.affiliates
 
 		if searchString.length > 0
 			affiliates = Lazy(affiliates).filter (a) -> a.name.toLowerCase().match searchString
@@ -37,9 +39,9 @@ RewardList = React.createClass
 					input type: 'text', id: 'search-string', value: @state.searchString, onChange: @handleChange
 			ul className: 'crp-affiliates-list', affiliates.map (affiliate) ->
 				li className: 'crp-affiliates-item',
-					img src: "/img/#{affiliate.img}"
+					img src: "img/#{affiliate.img}"
 					div className: 'crp-container',
 						p className: 'crp-affiliate-name', affiliate.name
 						p className: 'crp-affiliate-description', affiliate.description
 
-module.exports = RewardList
+module.exports = AffiliateList

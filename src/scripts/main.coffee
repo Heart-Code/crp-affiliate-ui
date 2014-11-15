@@ -14,8 +14,8 @@ AffiliateList = require './components/AffiliateList'
 routes =
 	Routes null,
 		Route handler: MainPage,
-			DefaultRoute handler: AffiliateList
-			Route path: 'rewards', handler: RewardList
+			DefaultRoute handler: AffiliateList, title: 'Affiliates'
+			Route path: 'rewards', handler: RewardList, title: 'Rewards'
 		Route path: 'login', handler: Login
 		NotFoundRoute handler: NotFound
 

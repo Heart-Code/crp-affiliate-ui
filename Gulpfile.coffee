@@ -7,7 +7,11 @@ browserify = require 'gulp-browserify'
 clean = require 'gulp-clean'
 rename = require 'gulp-rename'
 plumber = require 'gulp-plumber'
-historyApiFallback = require 'connect-history-api-fallback'
+
+browserify = require 'browserify'
+coffeeify  = require 'coffeeify'
+source = require 'vinyl-source-stream'
+mold = require 'mold-source-map'
 
 path =
 	app: 'public'
@@ -19,10 +23,23 @@ path =
 		scripts: 'src/scripts/**/*.coffee'
 		styles: 'src/styles/**/*.sass'
 		views: 'src/views/**/*.jade'
-	
+
 
 # Processor tasks
 gulp.task 'scripts', ->
+	browserify './' + path.process.scripts,
+			debug: true
+			extensions: '.coffee'
+		.transform coffeeify
+		.bundle()
+		.on 'error', (err) ->
+			console.log err.message
+			@end()
+		.pipe mold.transformSourcesRelativeTo 'public/js'
+		.pipe source 'main.js'
+		.pipe gulp.dest 'public/js'
+
+###
 	gulp.src path.process.scripts, read: false
 		.pipe plumber()
 		.pipe browserify
@@ -31,6 +48,7 @@ gulp.task 'scripts', ->
 			extensions: '.coffee'
 		.pipe rename 'main.js'
 		.pipe gulp.dest 'public/js'
+###
 
 gulp.task 'styles', ->
 	gulp.src path.process.styles
