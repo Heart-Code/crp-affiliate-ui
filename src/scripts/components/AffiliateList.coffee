@@ -1,27 +1,19 @@
 React = require 'react'
 request = require 'superagent'
 Lazy = require 'lazy.js'
+AffiliateStore = require '../stores/AffiliateStore'
 
 {div, label, input, ul, li, img, span, p} = React.DOM
 
 AffiliateList = React.createClass
-	statics:
-		test: 'asd'
 	getInitialState: ->
 		searchString: ''
-		affiliates: [
-			{ name: 'Taco Bell', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', img: 'taco_bell.jpg' }
-			{ name: 'Adidas', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', img: 'adidas.jpg' }
-			{ name: 'Orlando', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', img: 'orlando.jpg' }
-		]
+		affiliates: AffiliateStore.getAffiliates()
 	componentDidMount: ->
-		###
-		request
-			.get 'http://api.crp.eridlabs.com/rewards'
-			.end (res) =>
-				@setState rewards: res.body
-		###
-	handleChange: (e) ->
+		AffiliateStore.addChangeListener @_onChange
+	componentWillUnmount: ->
+		AffiliateStore.removeChangeListener @_onChange
+	onChange: (e) ->
 		@setState searchString: e.target.value
 	render: ->
 		searchString = @state.searchString.trim().toLowerCase()
@@ -36,12 +28,16 @@ AffiliateList = React.createClass
 				div className: 'small-3 columns',
 					label className: 'prefix', htmlFor: 'search-string', 'Search'
 				div className: 'small-9 columns',
-					input type: 'text', id: 'search-string', value: @state.searchString, onChange: @handleChange
+					input type: 'text', id: 'search-string', value: @state.searchString, onChange: @onChange
 			ul className: 'crp-affiliates-list', affiliates.map (affiliate) ->
 				li className: 'crp-affiliates-item',
 					img src: "img/#{affiliate.img}"
 					div className: 'crp-container',
 						p className: 'crp-affiliate-name', affiliate.name
 						p className: 'crp-affiliate-description', affiliate.description
+
+	_onChange: ->
+		@setState
+			affiliates: AffiliateStore.getAffiliates()
 
 module.exports = AffiliateList

@@ -1,5 +1,4 @@
-React = require 'react'
-addons = require 'react-addons'
+React = require 'react/addons'
 TopMenu = require '../components/TopMenu'
 BottomMenu = require '../components/BottomMenu'
 
@@ -17,7 +16,7 @@ MainPage = React.createClass
 	onToggleMenu: ->
 		@setState displayMenu: !@state.displayMenu
 	render: ->
-		cx = addons.classSet
+		cx = React.addons.classSet
 		classes = cx
 			'move-left': @state.displayMenu
 
