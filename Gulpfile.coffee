@@ -8,7 +8,7 @@ clean = require 'gulp-clean'
 rename = require 'gulp-rename'
 plumber = require 'gulp-plumber'
 
-browserify = require 'browserify'
+browserify_ws = require 'browserify'
 coffeeify  = require 'coffeeify'
 source = require 'vinyl-source-stream'
 mold = require 'mold-source-map'
@@ -27,8 +27,17 @@ path =
 
 # Processor tasks
 gulp.task 'scripts', ->
-	##
-	browserify './' + path.process.scripts,
+	gulp.src path.process.scripts, read: false
+		.pipe plumber()
+		.pipe browserify
+			debug: true
+			transform: 'coffeeify'
+			extensions: '.coffee'
+		.pipe rename 'main.js'
+		.pipe gulp.dest 'public/js'
+
+gulp.task 'scripts-ws', ->
+	browserify_ws './' + path.process.scripts,
 			debug: true
 			extensions: '.coffee'
 		.transform coffeeify
@@ -39,17 +48,6 @@ gulp.task 'scripts', ->
 		.pipe mold.transformSourcesRelativeTo 'public/js'
 		.pipe source 'main.js'
 		.pipe gulp.dest 'public/js'
-
-###
-	gulp.src path.process.scripts, read: false
-		.pipe plumber()
-		.pipe browserify
-			debug: true
-			transform: 'coffeeify'
-			extensions: '.coffee'
-		.pipe rename 'main.js'
-		.pipe gulp.dest 'public/js'
-###
 
 gulp.task 'styles', ->
 	gulp.src path.process.styles
