@@ -1,14 +1,22 @@
 @import normalize
-//@import foundation
 
+// Foundation settings
 $tabbar-bg: #FFF
-$tabbar-color: #000
-$icon-bar-bg: #FFF
-$icon-bar-font-color: #000
-$icon-bar-icon-color: #000
-$tabbar-menu-icon-color: #000
+$tabbar-color: #666
+$tabbar-menu-icon-color: #ADCD7F
 $tabbar-left-section-border: none
-$off-canvas-bg: #4E518A
+
+$icon-bar-bg: #FFF
+$icon-bar-font-color: #666
+$icon-bar-icon-color: #666
+
+$off-canvas-bg: #ADCD7F
+
+$primary-color: #ADCD7F
+$secondary-color: #79E8CE
+
+$body-bg: #FFFAD7
+$body-font-color: #666
 
 // Foundation
 @import foundation/components/icon-bar
@@ -16,16 +24,21 @@ $off-canvas-bg: #4E518A
 @import foundation/components/forms
 @import foundation/components/grid
 
+// Extend foundation
+.tab-bar
+	border-bottom: 1px solid #d6d6d6
+	box-shadow: 1px 1px #c0c0c0
+	font-weight: bold
 
-@import general_foundicons
-
+// Main pages
 @import pages/MainPage
 @import pages/Login
+
+// Components
 @import components/Rewards
 @import components/TopMenu
 @import components/BottomMenu
 @import components/AffiliateList
 
-
-html, body
-	background-color: white
+// Helpers
+@import partials/forms
