@@ -1,7 +1,7 @@
 React = require 'react'
 {Link} = require 'react-router'
 
-{div, a, label, aside, nav, section, i, span, ul, li} = React.DOM
+{div, a, label, aside, nav, section, i, span, ul, li, img} = React.DOM
 
 TopMenu = React.createClass
 	getInitialState: ->
@@ -16,7 +16,7 @@ TopMenu = React.createClass
 		div className: 'top-menu',
 			nav className: 'tab-bar',
 				section className: 'left-small',
-					i className: 'fi-home'
+					img className: 'crp-logo', src: 'img/crp_logo.png'
 				section className: 'middle tab-bar-section',
 					@props.title
 				section className: 'right-small',

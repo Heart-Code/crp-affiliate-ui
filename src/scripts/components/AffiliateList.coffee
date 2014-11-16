@@ -24,11 +24,7 @@ AffiliateList = React.createClass
 			affiliates = affiliates.toArray()
 
 		div className: 'crp-affiliates',
-			div className: 'row collapse',
-				div className: 'small-3 columns',
-					label className: 'prefix', htmlFor: 'search-string', 'Search'
-				div className: 'small-9 columns',
-					input type: 'text', id: 'search-string', value: @state.searchString, onChange: @onChange
+			input type: 'text', id: 'search-string', placeholder: '\uD83D\uDD0D Filter affiliates', value: @state.searchString, onChange: @onChange
 			ul className: 'crp-affiliates-list', affiliates.map (affiliate) ->
 				li className: 'crp-affiliates-item',
 					img src: "img/#{affiliate.img}"
