@@ -4,6 +4,7 @@ React = require 'react'
 # Pages
 MainPage = require './pages/MainPage'
 Login = require './pages/Login'
+SignUp = require './pages/SignUp'
 NotFound = require './pages/NotFound'
 
 # Components
@@ -24,7 +25,8 @@ routes =
 		Route handler: MainPage,
 			DefaultRoute handler: AffiliateList, title: 'Affiliates'
 			Route path: 'rewards', handler: RewardList, title: 'Rewards'
-		Route path: 'login', handler: Login
+		Route path: 'login', name: 'login', handler: Login, title: 'Login'
+		Route path: 'signup', name: 'signup', handler: SignUp, title: 'Sign Up'
 		NotFoundRoute handler: NotFound
 
 React.render routes, document.body
