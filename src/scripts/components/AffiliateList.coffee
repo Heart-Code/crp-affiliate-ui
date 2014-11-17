@@ -1,19 +1,20 @@
 React = require 'react'
-request = require 'superagent'
+Reflux = require 'reflux'
 Lazy = require 'lazy.js'
 AffiliateStore = require '../stores/AffiliateStore'
 
 {div, label, input, ul, li, img, span, p} = React.DOM
 
 AffiliateList = React.createClass
+	mixins: [Reflux.ListenerMixin]
 	getInitialState: ->
 		searchString: ''
-		affiliates: AffiliateStore.getAffiliates()
+		affiliates: AffiliateStore.list
+	onStatusChange: (list) ->
+		@setState	affiliates: list
 	componentDidMount: ->
-		AffiliateStore.addChangeListener @_onChange
-	componentWillUnmount: ->
-		AffiliateStore.removeChangeListener @_onChange
-	onChange: (e) ->
+		@listenTo AffiliateStore, @onStatusChange
+	handleSearchString: (e) ->
 		@setState searchString: e.target.value
 	render: ->
 		searchString = @state.searchString.trim().toLowerCase()
@@ -25,7 +26,7 @@ AffiliateList = React.createClass
 
 		div className: 'crp-affiliates',
 			div className: 'crp-search',
-				input type: 'text', id: 'search-string', placeholder: '\uD83D\uDD0D Filter affiliates', value: @state.searchString, onChange: @onChange
+				input type: 'text', id: 'search-string', placeholder: '\uD83D\uDD0D Filter affiliates', value: @state.searchString, onChange: @handleSearchString
 			ul className: 'crp-affiliates-list', affiliates.map (affiliate) ->
 				li className: 'crp-affiliates-item',
 					div className: 'crp-icon-next big',
@@ -34,9 +35,5 @@ AffiliateList = React.createClass
 					div className: 'crp-container',
 						p className: 'crp-affiliate-name', affiliate.name
 						p className: 'crp-affiliate-description', affiliate.description
-
-	_onChange: ->
-		@setState
-			affiliates: AffiliateStore.getAffiliates()
 
 module.exports = AffiliateList

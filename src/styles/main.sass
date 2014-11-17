@@ -17,12 +17,25 @@ $secondary-color: #79E8CE
 
 $body-bg: #FFFAD7
 $body-font-color: #666
+$alert-color: #c24f56
 
 // Foundation
 @import foundation/components/icon-bar
 @import foundation/components/offcanvas
 @import foundation/components/forms
 @import foundation/components/grid
+@import foundation/components/alert-boxes
+
+// Helpers
+.clearfix, .cf
+	&:before, &:after
+		content: ' '
+		display: table
+	&:after
+		clear: both
+
+@import partials/fonts
+@import partials/forms
 
 // Extend foundation
 .tab-bar
@@ -30,8 +43,11 @@ $body-font-color: #666
 	box-shadow: 1px 1px #c0c0c0
 	font-weight: bold
 
+.small-11
+	.center, .middle
+		margin: 0 auto
+
 // Main pages
-@import partials/Fonts
 @import pages/MainPage
 @import pages/Login
 
@@ -40,6 +56,3 @@ $body-font-color: #666
 @import components/TopMenu
 @import components/BottomMenu
 @import components/AffiliateList
-
-// Helpers
-@import partials/forms

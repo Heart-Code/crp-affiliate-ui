@@ -1,28 +1,20 @@
-AppDispatcher = require '../dispatcher/AppDispatcher'
-AffiliateConstants = require '../constants/AffiliateConstants'
-{EventEmitter} = require 'events'
-merge = require 'react/lib/merge'
+Reflux = require 'reflux'
+AffiliateActions = require '../actions/AffiliateActions'
 
-_affiliates = []
+AffiliateStore = Reflux.createStore
+	init: ->
+		@list = []
+		@listenToMany AffiliateActions
+		AffiliateActions.loadAll()
+	onLoadAll: ->
+		# TODO: Get from API
+		@list = [
+			{ name: 'Taco Bell', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', img: 'taco_bell.jpg' }
+			{ name: 'Adidas', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', img: 'adidas.jpg' }
+			{ name: 'Orlando', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', img: 'orlando.jpg' }
+			{ name: 'Taco Bell', description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', img: 'taco_bell.jpg' }
+		]
 
-loadAffiliates = (data) ->
-  _affiliates = data
-
-AffiliateStore = merge EventEmitter.prototype,
-  getAffiliates: -> _affiliates
-  emitChange: -> @emit 'change'
-  addChangeListener: (callback) -> @on 'change', callback
-  removeChangeListener: (callback) -> @removeListener 'change', callback
-
-AppDispatcher.register (payload) ->
-  action = payload.action
-
-  switch action.actionType
-    when AffiliateConstants.LOAD_AFFILIATES then loadAffiliates action.data
-    else return true
-
-  AffiliateStore.emitChange()
-
-  return true
+		@trigger @list
 
 module.exports = AffiliateStore
