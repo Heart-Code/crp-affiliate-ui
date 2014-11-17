@@ -2,7 +2,7 @@ React = require 'react'
 request = require 'superagent'
 Lazy = require 'lazy.js'
 
-{div, label, input, ul, li, img} = React.DOM
+{div, label, input, ul, li, img, span} = React.DOM
 
 RewardList = React.createClass
 	getInitialState: ->
@@ -24,8 +24,9 @@ RewardList = React.createClass
 			rewards = rewards.toArray()
 
 		div className: 'rewards',
-			label htmlFor: 'search-string', 'Search'
-			input type: 'text', id: 'search-string', value: @state.searchString, onChange: @handleChange
+			div className: 'crp-search',
+				input type: 'text', id: 'search-string', placeholder: 'Search Rewards', value: @state.searchString, onChange: @handleChange
+				span className: 'promotional', 'Take a look to our latest Rewards'
 			ul null, rewards.map (r) ->
 				li null,
 					img src: r.img
