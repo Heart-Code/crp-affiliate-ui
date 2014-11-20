@@ -1,18 +1,26 @@
 React = require 'react'
+Reflux = require 'reflux'
 request = require 'superagent'
 Lazy = require 'lazy.js'
+RewardListStore = require '../stores/RewardListStore'
+RewardActions = require '../actions/RewardActions'
 
 {div, label, input, ul, li, img, span} = React.DOM
 
 RewardList = React.createClass
+	mixins: [Reflux.ListenerMixin]
 	getInitialState: ->
 		searchString: ''
-		rewards: [
-				{ name: 'Taco Bell - Burritos', affiliate: '', points: 10, img: 'http://placehold.it/50x50' }
-				{ name: 'Taco Bell - Tacos', affiliate: '', points: 20, img: 'http://placehold.it/50x50' }
-				{ name: 'Taco Bell - Burritos', affiliate: '', points: 5, img: 'http://placehold.it/50x50' }
-				{ name: 'Taco Bell - Tacos', affiliate: '', points: 5, img: 'http://placehold.it/50x50' }
-			]
+		rewards: []
+	onRewardListChange: (rewards) ->
+		@setState {rewards}
+	componentDidMount: ->
+		@listenTo RewardListStore, @onRewardListChange
+		console.log this
+		if @props.params.affiliateId
+			RewardActions.loadFromAffiliate @props.params.affiliateId
+		else
+			RewardActions.loadAll()
 	handleChange: (e) ->
 		@setState searchString: e.target.value
 	render: ->
