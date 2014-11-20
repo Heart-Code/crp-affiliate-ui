@@ -19,7 +19,7 @@ SessionStore = Reflux.createStore
 		# TODO: use(bearer)
 		# TODO:
 		request
-			.post 'http://localhost:3000/oauth2/token'
+			.post 'http://api.crp.eridlabs.com/oauth2/token'
 			.auth '546a239d5021eee0313af9d1', '7H1515A53C437'
 			.send { username, password, grant_type: 'password' }
 			.end (res) =>
