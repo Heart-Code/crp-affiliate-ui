@@ -7,12 +7,12 @@ Lazy = require 'lazy.js'
 RewardList = React.createClass
 	getInitialState: ->
 		searchString: ''
-		rewards: []
-	componentDidMount: ->
-		request
-			.get 'http://api.crp.eridlabs.com/rewards'
-			.end (res) =>
-				@setState rewards: res.body
+		rewards: [
+				{ name: 'Taco Bell - Burritos', affiliate: '', points: 10, img: 'http://placehold.it/50x50' }
+				{ name: 'Taco Bell - Tacos', affiliate: '', points: 20, img: 'http://placehold.it/50x50' }
+				{ name: 'Taco Bell - Burritos', affiliate: '', points: 5, img: 'http://placehold.it/50x50' }
+				{ name: 'Taco Bell - Tacos', affiliate: '', points: 5, img: 'http://placehold.it/50x50' }
+			]
 	handleChange: (e) ->
 		@setState searchString: e.target.value
 	render: ->
@@ -30,6 +30,7 @@ RewardList = React.createClass
 			ul null, rewards.map (r) ->
 				li null,
 					img src: r.img
-					" #{r.name} - #{r.points}"
+					span className: "name", r.name
+					span className: "points", "+ #{r.points}"
 
 module.exports = RewardList
