@@ -1,13 +1,14 @@
 React = require 'react'
 Reflux = require 'reflux'
 {div, form, input, a, i, img, nav, section, label, hr, p, span} = React.DOM
-{Link, Navigation} = require 'react-router'
+{Link} = require 'react-router'
 LoginActions = require '../actions/LoginActions'
-LoginStore = require '../stores/LoginStore'
+SessionStore = require '../stores/SessionStore'
+{LoggedOutMixin} = require '../mixins/SessionMixins'
 
 # TODO: Redirect if we have the token already
 Login = React.createClass
-	mixins: [Reflux.ListenerMixin, Navigation]
+	mixins: [Reflux.ListenerMixin, LoggedOutMixin]
 	getInitialState: ->
 		status: 0
 	onLoginChange: (status) ->
@@ -16,7 +17,7 @@ Login = React.createClass
 		else
 			@setState {status}
 	componentDidMount: ->
-		@listenTo LoginStore, @onLoginChange
+		@listenTo SessionStore, @onLoginChange
 	handleSubmit: ->
 		email = @refs.email.getDOMNode().value
 		password = @refs.password.getDOMNode().value

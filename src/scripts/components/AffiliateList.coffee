@@ -2,11 +2,12 @@ React = require 'react'
 Reflux = require 'reflux'
 Lazy = require 'lazy.js'
 AffiliateStore = require '../stores/AffiliateStore'
+{LoggedInMixin} = require '../mixins/SessionMixins'
 
 {div, label, input, ul, li, img, span, p} = React.DOM
 
 AffiliateList = React.createClass
-	mixins: [Reflux.ListenerMixin]
+	mixins: [Reflux.ListenerMixin, LoggedInMixin]
 	getInitialState: ->
 		searchString: ''
 		affiliates: AffiliateStore.list
