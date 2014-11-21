@@ -4,18 +4,26 @@ React = require 'react'
 # Pages
 MainPage = require './pages/MainPage'
 Login = require './pages/Login'
+SignUp = require './pages/SignUp'
 NotFound = require './pages/NotFound'
 
 # Components
 Dashboard = require './components/Dashboard'
 RewardList = require './components/RewardList'
+AffiliateList = require './components/AffiliateList'
+AddPoints = require './components/AddPoints'
+
+React.initializeTouchEvents(true)
 
 routes =
-	Routes null,
+	Routes {},
 		Route handler: MainPage,
-			DefaultRoute handler: Dashboard
-			Route path: 'rewards', handler: RewardList
-		Route path: 'login', handler: Login
+			DefaultRoute handler: AffiliateList, title: 'Affiliates'
+			Route path: 'rewards', handler: RewardList, title: 'Rewards'
+			Route path: 'rewards/:affiliateId', name: 'rewards', handler: RewardList, title: 'Rewards'
+			Route path: 'addpoints', handler: AddPoints, title: 'Add Points'
+		Route path: 'login', name: 'login', handler: Login, title: 'Login'
+		Route path: 'signup', name: 'signup', handler: SignUp, title: 'Sign Up'
 		NotFoundRoute handler: NotFound
 
 React.render routes, document.body
