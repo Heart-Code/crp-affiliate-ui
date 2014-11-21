@@ -7,6 +7,7 @@ plumber = require 'gulp-plumber'
 connect = require 'gulp-connect'
 
 webpackConfig = require './webpack.config'
+webpackProdConfig = require './webpack.production.config'
 gutil = require 'gulp-util'
 webpack = require 'webpack'
 WebpackDevServer = require 'webpack-dev-server'
@@ -41,6 +42,14 @@ gulp.task 'webpack:build-dev', (callback) ->
 	devCompiler.run (err, stats) ->
 		if err then throw new gutil.PluginError 'webpack:build-dev', err
 		gutil.log '[webpack:build-dev]', stats.toString colors: true
+		callback()
+
+# We need to cache the webpack
+prodCompiler = webpack webpackProdConfig
+gulp.task 'webpack:build', (callback) ->
+	prodCompiler.run (err, stats) ->
+		if err then throw new gutil.PluginError 'webpack:build', err
+		gutil.log '[webpack:build]', stats.toString colors: true
 		callback()
 
 devServer = {}
