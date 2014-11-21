@@ -77,7 +77,7 @@ gulp.task 'clean', ->
 		.pipe clean()
 
 gulp.task 'connect', ->
-	port = 8080
+	port = gulp.env.p || gulp.env.port || 8080
 	connect.server
 		root: path.app
 		livereload: true

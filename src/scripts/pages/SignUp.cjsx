@@ -5,7 +5,7 @@ React = require 'react'
 SignUp = React.createClass
 	mixins: [Navigation]
 	handleBack: ->
-		@goBack()
+		@transitionTo 'login'
 	render: ->
 		<div className="crp-sign-up">
 			<nav className="tab-bar">
@@ -14,8 +14,24 @@ SignUp = React.createClass
 				</section>
 				<section className="middle tab-bar-section">{@props.title}</section>
 			</nav>
-			<div className="small-11 center">
-				Coming soon!
+			<div className="columns content">
+				<div className="crp-icon-addon big">          
+					<input type="text" placeholder="Email Address" id="email" />
+					<label className="glyphicons envelope"></label>
+				</div>
+				<div className="crp-icon-addon big">     
+					<input type="text" placeholder="Password" />
+					<label className="glyphicons keys"></label>     
+				</div>
+				<div className="crp-icon-addon big">     
+					<input type="text" placeholder="Confirm Password" class="crp-icon-addon big"/>
+					<label className="glyphicons keys"></label>
+				</div>
+				<div className="small-12">
+					<a className="button small-12" href="" >SIGN UP</a>
+				</div>
+
+				<hr />
 			</div>
 		</div>
 

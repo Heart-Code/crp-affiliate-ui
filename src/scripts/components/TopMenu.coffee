@@ -3,13 +3,9 @@ React = require 'react'
 
 {div, a, label, aside, nav, section, i, span, ul, li, img} = React.DOM
 
+ProfileAside = require './ProfileAside'
+
 TopMenu = React.createClass
-	getInitialState: ->
-		# TODO: Get them from the API
-		items: [
-			{ name: 'Home', url: '/'}
-			{ name: 'Rewards', url: '/rewards'}
-		]
 	onMenuClick: ->
 		@props.onToggleMenu?()
 	render: ->
@@ -21,10 +17,6 @@ TopMenu = React.createClass
 					@props.title
 				section className: 'right-small',
 					a className: 'right-off-canvas-toggle menu-icon', onClick: @onMenuClick, span()
-			aside className: 'right-off-canvas-menu',
-				ul className: 'off-canvas-list',
-					@state.items.map (item) ->
-						li null,
-							Link to: item.url, item.name
+			aside className: 'right-off-canvas-menu', ProfileAside()
 
 module.exports = TopMenu
