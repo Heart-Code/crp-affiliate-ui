@@ -11,6 +11,7 @@ gutil = require 'gulp-util'
 webpack = require 'webpack'
 WebpackDevServer = require 'webpack-dev-server'
 touch = require 'touch'
+open = require 'open'
 
 $ = require('gulp-load-plugins')()
 
@@ -76,10 +77,12 @@ gulp.task 'clean', ->
 		.pipe clean()
 
 gulp.task 'connect', ->
+	port = 8080
 	connect.server
 		root: path.app
 		livereload: true
-		port: 8080
+		port: port
+	open "http://localhost:#{port}"
 
 gulp.task 'watch', ['styles', 'copy-assets', 'webpack:build-dev'], ->
 	gulp.start 'connect'

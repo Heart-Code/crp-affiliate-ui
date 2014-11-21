@@ -24,7 +24,7 @@ module.exports =
 		extensions: ['', '.js', '.cjsx', '.coffee']
 	module:
 		loaders: [
-			{ test: /\.css/, loaders: ['style']}
+			{ test: /\.css/, loaders: ['style', 'css']}
 			{ test: /\.cjsx$/, loaders: ['react-hot', 'coffee', 'cjsx']}
 			{ test: /\.coffee$/, loader: 'coffee' }
 		]

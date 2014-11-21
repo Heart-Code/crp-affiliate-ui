@@ -14,6 +14,10 @@ indent_size = 2
 indent_style = tab
 indent_size = 2
 
+[*.cjsx]
+indent_style = tab
+indent_size = 2
+
 [*.scss]
 indent_style = tab
 indent_size = 2
