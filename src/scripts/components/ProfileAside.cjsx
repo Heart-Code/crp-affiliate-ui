@@ -25,8 +25,9 @@ ProfileAside = React.createClass
 				<img src={profile.picture ? 'img/profile_default.jpg'} />
 			</div>
 			<div className="crp-profile-fullname">{profile.name.full}</div>
-			<div className="crp-profile-points">{profile.points} crpoints</div>
+			<div className="crp-profile-points">{profile.points} points</div>
 			<ul className="off-canvas-list">
+				<li><Link to="/addpoints"><i className="glyphicons gift"></i>Add Points</Link></li>
 				<li><a href="#"><i className="glyphicons gift"></i>Rewards Exchanged</a></li>
 				<li><a href="#"><i className="glyphicons user"></i>Edit Profile</a></li>
 				<li><a href="#" onClick={@handleLogOut}><i className="glyphicons lock"></i> Log Out</a></li>
