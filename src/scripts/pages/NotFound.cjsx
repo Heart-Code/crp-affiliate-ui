@@ -1,10 +1,7 @@
 React = require 'react'
 
-{div} = React.DOM
-
 NotFound = React.createClass
 	render: ->
-		div className: 'not-found',
-			'Not found!'
+		<div class='not-found'>Not found!</div>
 
 module.exports = NotFound

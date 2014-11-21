@@ -36,7 +36,7 @@ RewardList = React.createClass
 				input type: 'text', id: 'search-string', placeholder: 'Search Rewards', value: @state.searchString, onChange: @handleChange
 				span className: 'promotional', 'Take a look to our latest Rewards'
 			ul null, rewards.map (r) ->
-				li null,
+				li {},
 					img src: r.img
 					span className: "name", r.name
 					span className: "points", "+ #{r.points}"

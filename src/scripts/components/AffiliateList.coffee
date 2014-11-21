@@ -38,7 +38,6 @@ AffiliateList = React.createClass
 	render: ->
 		searchString = @state.searchString.trim().toLowerCase()
 		affiliates = @state.affiliates
-		component = this
 
 		if searchString.length > 0
 			affiliates = Lazy(affiliates).filter (a) -> a.name.toLowerCase().match searchString

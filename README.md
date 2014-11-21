@@ -1,4 +1,21 @@
 CRP Affiliate's UI
 ================
 
-Run `npm install` then run `gulp` and open the browser on [http://localhost:8080/]. You need NodeJS and Ruby (with Sass gem) installed.
+
+## Install dependencies
+
+Global packages required are gulp and cult:
+```
+npm install -g gulp cult
+```
+
+Then local dependencies:
+```
+npm install
+```
+
+## Run on development
+Run `cult watch` in order to build the source code and have a live reload server running immediatly.
+
+## Production build
+Simply run `cult build`

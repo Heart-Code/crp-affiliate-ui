@@ -15,7 +15,7 @@ AffiliateList = require './components/AffiliateList'
 React.initializeTouchEvents(true)
 
 routes =
-	Routes null,
+	Routes {},
 		Route handler: MainPage,
 			DefaultRoute handler: AffiliateList, title: 'Affiliates'
 			Route path: 'rewards', handler: RewardList, title: 'Rewards'

@@ -1,89 +1,74 @@
 gulp = require 'gulp'
 webserver = require 'gulp-webserver'
-coffee = require 'gulp-coffee'
-sass = require 'gulp-ruby-sass'
-jade = require 'gulp-jade'
-browserify = require 'gulp-browserify'
+sass = require 'gulp-sass'
 clean = require 'gulp-clean'
 rename = require 'gulp-rename'
 plumber = require 'gulp-plumber'
+connect = require 'gulp-connect'
 
-browserify_ws = require 'browserify'
-coffeeify  = require 'coffeeify'
-source = require 'vinyl-source-stream'
-mold = require 'mold-source-map'
+webpackConfig = require './webpack.config'
+gutil = require 'gulp-util'
+webpack = require 'webpack'
+WebpackDevServer = require 'webpack-dev-server'
+touch = require 'touch'
+
+$ = require('gulp-load-plugins')()
 
 path =
 	app: 'public'
 	process:
 		scripts: 'src/scripts/main.coffee'
 		styles: 'src/styles/*.sass'
-		views: ['src/views/**/*.jade', '!src/views/partials/*.jade']
 	watch:
-		scripts: 'src/scripts/**/*.coffee'
+		scripts: 'src/scripts/**/*.{coffee,cjsx}'
 		styles: 'src/styles/**/*.sass'
-		views: 'src/views/**/*.jade'
+		assets: 'assets/**'
+		js: 'public/js/**/*.js'
 
 
 # Processor tasks
-gulp.task 'scripts', ->
-	gulp.src path.process.scripts, read: false
-		.pipe plumber()
-		.pipe browserify
-			debug: true
-			transform: 'coffeeify'
-			extensions: '.coffee'
-		.pipe rename 'main.js'
-		.pipe gulp.dest 'public/js'
-
-gulp.task 'scripts-ws', ->
-	browserify_ws './' + path.process.scripts,
-			debug: true
-			extensions: '.coffee'
-		.transform coffeeify
-		.bundle()
-		.on 'error', (err) ->
-			console.log err.message
-			@end()
-		.pipe mold.transformSourcesRelativeTo 'public/js'
-		.pipe source 'main.js'
-		.pipe gulp.dest 'public/js'
-
 gulp.task 'styles', ->
 	gulp.src path.process.styles
 		.pipe plumber()
-		.pipe sass
-			#sourcemap: true
-			lineNumbers: true
+		.pipe sass sourceComments: 'normal'
 		.pipe gulp.dest 'public/css'
+		.pipe connect.reload()
 
-gulp.task 'views', ->
-	gulp.src path.process.views
-		.pipe plumber()
-		.pipe jade
-			pretty: true
+# We need to cache the webpack
+devCompiler = webpack webpackConfig
+gulp.task 'webpack:build-dev', (callback) ->
+	devCompiler.run (err, stats) ->
+		if err then throw new gutil.PluginError 'webpack:build-dev', err
+		gutil.log '[webpack:build-dev]', stats.toString colors: true
+		callback()
+
+devServer = {}
+gulp.task 'webpack-dev-server', (callback) ->
+	# Make sure there's a css file that can be required
+	touch.sync './public/css/main.css', time: new Date(0)
+
+	serverCompiler = webpack webpackConfig
+	devServer = new WebpackDevServer serverCompiler,
+		contentBase: './public/'
+		hot: true
+		watchDelay: 100
+		noInfo: true
+		stats:
+			colors: true
+
+	devServer.listen 8080, 'localhost', (err) ->
+		if err then throw new gutil.PluginError 'webpack-dev-server', err
+		gutil.log '[webpack-dev-server]', 'http://localhost:8080'
+		callback()
+
+gulp.task 'copy-assets', ->
+	gulp.src path.watch.assets
 		.pipe gulp.dest 'public'
+		.pipe $.size()
 
-gulp.task 'scripts-prod', ->
-	gulp.src path.process.scripts, read: false
-		.pipe plumber()
-		.pipe browserify
-			transform: 'coffeeify'
-			extensions: '.coffee'
-		.pipe rename 'main.js'
-		.pipe gulp.dest 'public/js'
-
-gulp.task 'styles-prod', ->
-	gulp.src path.process.styles
-		.pipe plumber()
-		.pipe sass()
-		.pipe gulp.dest 'public/css'
-
-gulp.task 'views-prod', ->
-	gulp.src path.process.views
-		.pipe plumber()
-		.pipe jade()
-		.pipe gulp.dest 'public'
+gulp.task 'js-livereload', ->
+	gulp.src path.watch.js
+		.pipe connect.reload()
 
 # Misc tasks
 gulp.task 'clean', ->
@@ -91,25 +76,24 @@ gulp.task 'clean', ->
 		.pipe clean()
 
 gulp.task 'connect', ->
-	gulp.src path.app
-		.pipe webserver
-			root: path.app
-			port: 8080
-			livereload: true
-			open: true
-			fallback: 'index.html'
+	connect.server
+		root: path.app
+		livereload: true
+		port: 8080
 
-gulp.task 'connect-prod', ->
-	gulp.src path.app
-		.pipe webserver
-			root: path.app
-			port: 8080
-			fallback: 'index.html'
-
-gulp.task 'watch', ->
-	gulp.watch path.watch.scripts, ['scripts']
+gulp.task 'watch', ['styles', 'copy-assets', 'webpack:build-dev'], ->
+	gulp.start 'connect'
+	gulp.watch path.watch.scripts, ['webpack:build-dev']
+	gulp.watch path.watch.js, ['js-livereload']	# We want immediate live reloading
 	gulp.watch path.watch.styles, ['styles']
-	gulp.watch path.watch.views, ['views']
+	gulp.watch path.watch.assets, ['copy-assets']
 
-gulp.task 'default', ['scripts', 'styles', 'views', 'connect', 'watch']
-gulp.task 'build', ['scripts-prod', 'styles-prod', 'views-prod']
+# TODO: Make it work with Webpack Hot Module Replacement plugin
+gulp.task 'watch-test', ['styles', 'copy-assets', 'webpack-dev-server'], ->
+	gulp.watch path.watch.styles, ['styles']
+	gulp.watch path.watch.assets, ['copy-assets']
+
+gulp.task 'default', ->
+	gulp.start 'build'
+
+gulp.task 'build', ['webpack:build', 'styles', 'copy-assets']
