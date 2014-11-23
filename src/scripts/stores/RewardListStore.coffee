@@ -26,7 +26,6 @@ RewardListStore = Reflux.createStore
 
 	onLoadFromAffiliate: (affiliateId) ->
 		rewards = Lazy(@rewards).filter (r) -> r.affiliate.match affiliateId
-		console.log @rewards
 
 		@trigger rewards.toArray()
 

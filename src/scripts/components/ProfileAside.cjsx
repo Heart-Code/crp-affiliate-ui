@@ -1,30 +1,23 @@
 React = require 'react'
-Reflux = require 'reflux'
 
 {Link} = require 'react-router'
-LoginActions = require '../actions/LoginActions'
+SessionActions = require '../actions/SessionActions'
 
 ProfileAside = React.createClass
-	mixins: [Reflux.ListenerMixin]
-	getInitialState: ->
-		profile:
-			email: 'erid14@gmail.com'
-			name:
-				full: 'Elías Baldioceda'
-			points: 125
-	componentDidMount: ->
-		#@listenTo LoginStore, @onLoginChange
-		#
+	shouldComponentUpdate: (nextProps, nextState) ->
+		nextProps.user isnt @props.user # Make sure to render only if the user change (it may need deeper check for minor changes)
 	handleLogOut: ->
-		LoginActions.logout()
+		SessionActions.logout()
 	render: ->
-		profile = @state.profile
+		profile = @props.user
+
+		if not profile? then return <div>Loading...</div>
 
 		<div className="crp-profile-aside small-11 center">
 			<div className="crp-profile-picture">
-				<img src={profile.picture ? 'img/profile_default.jpg'} />
+				<img src={profile.avatar} />
 			</div>
-			<div className="crp-profile-fullname">{profile.name.full}</div>
+			<div className="crp-profile-fullname">{profile.name.full ? profile.email}</div>
 			<div className="crp-profile-points">{profile.points} points</div>
 			<ul className="off-canvas-list">
 				<li><Link to="/addpoints"><i className="glyphicons gift"></i>Add Points</Link></li>

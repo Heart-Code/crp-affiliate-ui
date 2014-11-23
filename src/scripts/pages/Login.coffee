@@ -2,7 +2,7 @@ React = require 'react'
 Reflux = require 'reflux'
 {div, form, input, a, i, img, nav, section, label, hr, p, span} = React.DOM
 {Link} = require 'react-router'
-LoginActions = require '../actions/LoginActions'
+LoginActions = require '../actions/SessionActions'
 SessionStore = require '../stores/SessionStore'
 {LoggedOutMixin} = require '../mixins/SessionMixins'
 

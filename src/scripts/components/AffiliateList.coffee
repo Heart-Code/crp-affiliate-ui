@@ -2,18 +2,20 @@ React = require 'react'
 Reflux = require 'reflux'
 Lazy = require 'lazy.js'
 {Navigation} = require 'react-router'
-AffiliateStore = require '../stores/AffiliateStore'
+AffiliateListStore = require '../stores/AffiliateListStore'
 {LoggedInMixin} = require '../mixins/SessionMixins'
 
 {div, label, input, ul, li, img, span, p} = React.DOM
 
 AffiliateItem = React.createClass
 	mixins: [Navigation]
+	shouldComponentUpdate: (nextProps, nextState) ->
+		nextProps.affiliate isnt @props.affiliate # Make sure to render only if there's been changes
 	handleClick: (e) ->
 		@transitionTo 'rewards', affiliateId: @props.affiliate._id
-		console.log this
 	render: ->
 		affiliate = @props.affiliate
+
 		li className: 'crp-affiliates-item', onClick: @handleClick,
 			div className: 'crp-icon-next big',
 				img src: "img/#{affiliate.img}"
@@ -24,13 +26,15 @@ AffiliateItem = React.createClass
 
 AffiliateList = React.createClass
 	mixins: [Reflux.ListenerMixin, LoggedInMixin]
+	shouldComponentUpdate: (nextProps, nextState) ->
+		nextState.searchString isnt @state.searchString or nextState.affiliates isnt @state.affiliates # Trying to improve performance on mobile =/
 	getInitialState: ->
 		searchString: ''
-		affiliates: AffiliateStore.list
-	onStatusChange: (list) ->
+		affiliates: AffiliateListStore.list
+	onAffiliateListChange: (list) ->
 		@setState	affiliates: list
 	componentDidMount: ->
-		@listenTo AffiliateStore, @onStatusChange
+		@listenTo AffiliateListStore, @onAffiliateListChange
 	handleSearchString: (e) ->
 		@setState searchString: e.target.value
 	handleClickAffiliate: (e) ->

@@ -1,7 +1,7 @@
 Reflux = require 'reflux'
 AffiliateActions = require '../actions/AffiliateActions'
 
-AffiliateStore = Reflux.createStore
+AffiliateListStore = Reflux.createStore
 	init: ->
 		@list = []
 		@listenToMany AffiliateActions
@@ -17,4 +17,4 @@ AffiliateStore = Reflux.createStore
 
 		@trigger @list
 
-module.exports = AffiliateStore
+module.exports = AffiliateListStore

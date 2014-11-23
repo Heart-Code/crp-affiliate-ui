@@ -13,6 +13,7 @@ webpack = require 'webpack'
 WebpackDevServer = require 'webpack-dev-server'
 touch = require 'touch'
 open = require 'open'
+{argv} = require 'yargs'
 
 $ = require('gulp-load-plugins')()
 
@@ -86,7 +87,7 @@ gulp.task 'clean', ->
 		.pipe clean()
 
 gulp.task 'connect', ->
-	port = gulp.env.p || gulp.env.port || 8080
+	port = argv.p || argv.port || 8080
 	connect.server
 		root: path.app
 		livereload: true
