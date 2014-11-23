@@ -1,0 +1,27 @@
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = false
+
+[*.js]
+indent_style = tab
+indent_size = 2
+
+[*.coffee]
+indent_style = tab
+indent_size = 2
+
+[*.cjsx]
+indent_style = tab
+indent_size = 2
+
+[*.scss]
+indent_style = tab
+indent_size = 2
+
+[*.sass]
+indent_style = tab
+indent_size = 2

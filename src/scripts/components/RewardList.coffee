@@ -1,18 +1,26 @@
 React = require 'react'
+Reflux = require 'reflux'
 request = require 'superagent'
 Lazy = require 'lazy.js'
+RewardListStore = require '../stores/RewardListStore'
+RewardActions = require '../actions/RewardActions'
 
-{div, label, input, ul, li, img} = React.DOM
+{div, label, input, ul, li, img, span} = React.DOM
 
 RewardList = React.createClass
+	mixins: [Reflux.ListenerMixin]
 	getInitialState: ->
 		searchString: ''
 		rewards: []
+	onRewardListChange: (rewards) ->
+		@setState {rewards}
 	componentDidMount: ->
-		request
-			.get 'http://api.crp.eridlabs.com/rewards'
-			.end (res) =>
-				@setState rewards: res.body
+		@listenTo RewardListStore, @onRewardListChange
+		console.log this
+		if @props.params.affiliateId
+			RewardActions.loadFromAffiliate @props.params.affiliateId
+		else
+			RewardActions.loadAll()
 	handleChange: (e) ->
 		@setState searchString: e.target.value
 	render: ->
@@ -24,11 +32,13 @@ RewardList = React.createClass
 			rewards = rewards.toArray()
 
 		div className: 'rewards',
-			label htmlFor: 'search-string', 'Search'
-			input type: 'text', id: 'search-string', value: @state.searchString, onChange: @handleChange
+			div className: 'crp-search',
+				input type: 'text', id: 'search-string', placeholder: 'Search Rewards', value: @state.searchString, onChange: @handleChange
+				span className: 'promotional', 'Take a look to our latest Rewards'
 			ul null, rewards.map (r) ->
-				li null,
+				li {},
 					img src: r.img
-					" #{r.name} - #{r.points}"
+					span className: "name", r.name
+					span className: "points", "+ #{r.points}"
 
 module.exports = RewardList

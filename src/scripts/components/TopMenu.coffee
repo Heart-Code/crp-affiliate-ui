@@ -1,19 +1,22 @@
 React = require 'react'
 {Link} = require 'react-router'
 
-{div, ul, li, a} = React.DOM
+{div, a, label, aside, nav, section, i, span, ul, li, img} = React.DOM
+
+ProfileAside = require './ProfileAside'
 
 TopMenu = React.createClass
-	getInitialState: ->
-		# TODO: Get them from the API
-		items: [
-			{ name: 'Home', url: '/'}
-			{ name: 'Rewards', url: '/rewards'}
-		]
+	onMenuClick: ->
+		@props.onToggleMenu?()
 	render: ->
 		div className: 'top-menu',
-			ul null, @state.items.map (i) ->
-				li null,
-					Link to: i.url, "#{i.name}"
+			nav className: 'tab-bar',
+				section className: 'left-small',
+					img className: 'crp-logo', src: 'img/crp_logo.png'
+				section className: 'middle tab-bar-section',
+					@props.title
+				section className: 'right-small',
+					a className: 'right-off-canvas-toggle menu-icon', onClick: @onMenuClick, span()
+			aside className: 'right-off-canvas-menu', ProfileAside()
 
 module.exports = TopMenu
