@@ -37,10 +37,10 @@ Login = React.createClass
 				div className: 'row-12 columns crp-login-inputs',
 					div className: 'crp-icon-addon big',
 						input type: 'text', placeholder: 'Email Address', id: 'email', ref: 'email'
-						label for: 'email', className: 'glyphicons envelope'
+						label htmlFor: 'email', className: 'glyphicons envelope'
 					div className: 'crp-icon-addon big',
 						input type: 'password', placeholder: 'Password', id: 'password', ref: 'password'
-						label for: 'password', className: 'glyphicons keys'
+						label htmlFor: 'password', className: 'glyphicons keys'
 				errorMessage
 				div className: 'small-12 columns',
 					a className: 'button small-12', onClick: @handleSubmit,

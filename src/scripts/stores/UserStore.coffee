@@ -1,5 +1,5 @@
 Reflux = require 'reflux'
-request = require 'superagent'
+{request, authorize} = require '../utils/Request'
 
 UserActions = require '../actions/UserActions'
 SessionActions = require '../actions/SessionActions'
@@ -12,13 +12,10 @@ UserStore = Reflux.createStore
 		@listenToMany UserActions
 
 	onGetCurrent: ->
-		console.log 'called'
 		request
-			.get 'http://localhost:3000/user'
-			.set 'Authorization', "Bearer #{SessionStore.getAccessToken()}"
+			.get '/user'
+			.use authorize
 			.end (res) =>
-				if res.unauthorized
-					SessionActions.unauthorized()
 				if res.ok
 					@trigger res.body.user
 

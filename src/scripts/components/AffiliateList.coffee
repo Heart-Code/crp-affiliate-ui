@@ -50,6 +50,6 @@ AffiliateList = React.createClass
 		div className: 'crp-affiliates',
 			div className: 'crp-search',
 				input type: 'text', id: 'search-string', placeholder: '\uD83D\uDD0D Filter affiliates', value: @state.searchString, onChange: @handleSearchString
-			ul className: 'crp-affiliates-list', affiliates.map (affiliate) -> AffiliateItem {affiliate}
+			ul className: 'crp-affiliates-list', affiliates.map (affiliate, i) -> AffiliateItem {affiliate, key: "aff-#{i}"}
 
 module.exports = AffiliateList

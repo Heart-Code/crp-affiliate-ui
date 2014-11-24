@@ -1,7 +1,8 @@
 React = require 'react/addons'
 Reflux = require 'reflux'
-TopMenu = require '../components/TopMenu'
-BottomMenu = require '../components/BottomMenu'
+
+TopMenu = React.createFactory require '../components/TopMenu'
+BottomMenu = React.createFactory require '../components/BottomMenu'
 
 UserActions = require '../actions/UserActions'
 SessionActions = require '../actions/SessionActions'
@@ -32,7 +33,6 @@ MainPage = React.createClass
 		cx = React.addons.classSet
 		classes = cx
 			'move-left': @state.displayMenu
-		console.log 'rendered'
 
 		div className: "main-page off-canvas-wrap #{classes}",
 			div className: 'inner-wrap',
