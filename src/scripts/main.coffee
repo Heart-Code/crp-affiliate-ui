@@ -2,16 +2,16 @@ React = require 'react'
 {Routes, Route, DefaultRoute, NotFoundRoute, Link} = require('react-router')
 
 # Pages
-MainPage = require './pages/MainPage'
-Login = require './pages/Login'
-SignUp = require './pages/SignUp'
-NotFound = require './pages/NotFound'
+MainPage = React.createFactory require './pages/MainPage'
+Login = React.createFactory require './pages/Login'
+SignUp = React.createFactory require './pages/SignUp'
+NotFound = React.createFactory require './pages/NotFound'
 
 # Components
-Dashboard = require './components/Dashboard'
-RewardList = require './components/RewardList'
-AffiliateList = require './components/AffiliateList'
-AddPoints = require './components/AddPoints'
+Dashboard = React.createFactory require './components/Dashboard'
+RewardList = React.createFactory require './components/RewardList'
+AffiliateList = React.createFactory require './components/AffiliateList'
+AddPoints = React.createFactory require './components/AddPoints'
 
 React.initializeTouchEvents(true)
 

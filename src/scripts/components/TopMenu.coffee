@@ -17,6 +17,6 @@ TopMenu = React.createClass
 					@props.title
 				section className: 'right-small',
 					a className: 'right-off-canvas-toggle menu-icon', onClick: @onMenuClick, span()
-			aside className: 'right-off-canvas-menu', ProfileAside()
+			aside className: 'right-off-canvas-menu', ProfileAside user: @props.user
 
 module.exports = TopMenu

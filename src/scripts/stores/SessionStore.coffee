@@ -1,10 +1,10 @@
 Reflux = require 'reflux'
-request = require 'superagent'
-LoginActions = require '../actions/LoginActions'
+{request, login} = require '../utils/Request'
+SessionActions = require '../actions/SessionActions'
 
 SessionStore = Reflux.createStore
 	init: ->
-		@listenToMany LoginActions
+		@listenToMany SessionActions
 
 	setAccessToken: (accessToken) ->
 		localStorage.setItem 'access_token', accessToken
@@ -15,26 +15,21 @@ SessionStore = Reflux.createStore
 
 	# Actions
 	onLogin: (username, password) ->
-		# TODO: prefix(request)
-		# TODO: use(bearer)
-		# TODO:
+		console.log request
 		request
-			.post 'http://api.crp.eridlabs.com/oauth2/token'
-			.auth '546a239d5021eee0313af9d1', '7H1515A53C437'
-			.send { username, password, grant_type: 'password' }
+			.post '/oauth2/token'
+			.use login username, password
 			.end (res) =>
 				if res.ok
 					@setAccessToken res.body.access_token
 
 				@trigger res.status
-			.on 'error', (err) =>
-				console.log err
-				if res.unauthorized
-					console.log 'HA!'
-				if res.forbidden
-					console.log 'HA!'
 	onLogout: ->
 		@removeAccessToken()
 		@trigger null
+	onUnauthorized: ->
+		@trigger 401	# TODO: Use constants
+	onForbidden: ->
+		@trigger 403
 
 module.exports = SessionStore

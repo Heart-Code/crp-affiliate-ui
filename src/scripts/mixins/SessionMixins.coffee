@@ -7,10 +7,12 @@ LoggedInMixin =
 		if not localStorage.getItem 'access_token'
 			@transitionTo 'login'
 	componentDidMount: ->
-		@listenTo SessionStore, @onLoggedOut
+		@listenTo SessionStore, @onSessionChange
 
-	onLoggedOut: (status) ->
-		@transitionTo 'login'
+	onSessionChange: (status) ->
+		console.log status
+		if not status?
+			@transitionTo 'login'
 
 LoggedOutMixin =
 	mixins: [Navigation]
