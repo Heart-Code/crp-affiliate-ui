@@ -15,7 +15,6 @@ SessionStore = Reflux.createStore
 
 	# Actions
 	onLogin: (username, password) ->
-		console.log request
 		request
 			.post '/oauth2/token'
 			.use login username, password
