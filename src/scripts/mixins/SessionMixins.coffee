@@ -10,7 +10,6 @@ LoggedInMixin =
 		@listenTo SessionStore, @onSessionChange
 
 	onSessionChange: (status) ->
-		console.log status
 		if not status?
 			@transitionTo 'login'
 

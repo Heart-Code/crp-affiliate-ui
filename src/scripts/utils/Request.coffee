@@ -1,7 +1,6 @@
 request = require 'superagent'
 Response = request.Response
 SessionActions = require '../actions/SessionActions'
-#SessionStore = require '../stores/SessionStore'
 
 config =
 	api_url: 'http://localhost:3000'
