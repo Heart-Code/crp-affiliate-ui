@@ -22,14 +22,14 @@ UserStore = Reflux.createStore
 		# TODO: Edit request
 
 	onCreate: (email, password)->
-		console.log request
 		request
 			.post '/user'
 			.use prefix
 			.send {email, password}
 			.end (res) =>
 				if res.ok
-					console.log('tomelos')
+					console.log('SUCCESS')
+					@trigger res.body
 		# TODO: Add create post request
 
 	onAddPoints: ->

@@ -1,10 +1,12 @@
 React = require 'react'
+Reflux = require 'reflux'
 {div, nav, section, i, a} = React.DOM
 {Link, Navigation} = require 'react-router'
 UserActions = require '../actions/UserActions'
+UserStore = require '../stores/UserStore'
 
 SignUp = React.createClass
-	mixins: [Navigation]
+	mixins: [Navigation, Reflux.listenTo(UserStore,'onUserChange')]
 	getInitialState: ->
 		emailPattern: /// ^ ([\w.-]+) @ ([\w.-]+) \. ([a-zA-Z.]{2,6}) $ ///i       
 		emailIsInvalid: false
@@ -26,7 +28,12 @@ SignUp = React.createClass
 		@setState confirmPasswordISInvalid: if confirmPassword == '' then true else false
 
 		UserActions.create email, password
-
+	onUserChange: (res) ->
+		console.log(res)
+		if res.errors?.email?
+			console.log('Error Register')
+		else
+			@transitionTo 'login'
 	render: ->
 
 		#Checking the state of the input, to add the redborder class
