@@ -1,6 +1,5 @@
 Reflux = require 'reflux'
-{request, authorize} = require '../utils/Request'
-
+{request, authorize, prefix} = require '../utils/Request'
 UserActions = require '../actions/UserActions'
 SessionActions = require '../actions/SessionActions'
 SessionStore = require './SessionStore'
@@ -22,8 +21,14 @@ UserStore = Reflux.createStore
 	onEdit: ->
 		# TODO: Edit request
 
-	onCreate: ->
-		# TODO: Add create post request
+	onCreate: (email, password) ->
+		request
+			.post '/user'
+			.use prefix
+			.send {email, password}
+			.end (res) =>
+				if res.ok
+					@trigger res.body
 
 	onAddPoints: ->
 		# TODO: Add points request
