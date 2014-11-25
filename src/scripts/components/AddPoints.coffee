@@ -5,12 +5,12 @@ React = require 'react'
 AddPoints = React.createClass
 	getInitialState: ->
 		points: 20
-		error: 0
+		error: false
 	addPoints: ->
 		code = @refs.code.getDOMNode().value
 
 		if code is '500'
-			@setState error: 0
+			@setState error: false
 			max = @state.points + 10
 			count = setInterval (=>
 				  @setState points: @state.points + 1
@@ -18,16 +18,16 @@ AddPoints = React.createClass
 				  return
 				), 250
 		else 
-			@setState error: 400
+			@setState error: true
 
 	render: ->
-			if @state.error is 400 then errorMessage = div className: 'crp-alert-error', 'Invalid code'
-			div className: 'crp-search',
-				div className: 'crp-points',
-					span className: 'points', "#{@state.points}pts"
-				errorMessage
-				input type: 'text', id: 'search-string', placeholder: 'Add Points', ref: 'code'
-				a className: 'button small-12', onClick: @addPoints, 'AddPoints'
+		if @state.error then errorMessage = div className: 'crp-alert-error', 'Invalid code'
+		div className: 'crp-search',
+			div className: 'crp-points',
+				span className: 'points', "#{@state.points}pts"
+			errorMessage
+			input type: 'text', id: 'search-string', placeholder: 'Add Points', ref: 'code'
+			a className: 'button small-12', onClick: @addPoints, 'AddPoints'
 				
 
 
