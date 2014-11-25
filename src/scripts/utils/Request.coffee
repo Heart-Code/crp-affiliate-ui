@@ -55,4 +55,4 @@ login = (username, password) ->
 			.auth config.api_key, config.api_secret
 			.send { username, password, grant_type: 'password' }
 
-module.exports = {request, authorize, login}
+module.exports = {request, authorize, login, prefix}

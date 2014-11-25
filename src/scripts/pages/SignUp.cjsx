@@ -1,6 +1,7 @@
 React = require 'react'
 {div, nav, section, i, a} = React.DOM
 {Link, Navigation} = require 'react-router'
+UserActions = require '../actions/UserActions'
 
 SignUp = React.createClass
 	mixins: [Navigation]
@@ -23,6 +24,8 @@ SignUp = React.createClass
 		@setState emailIsInvalid: if email == '' then true else if email.match @state.emailPattern then false else true
 		@setState passwordIsInvalid: if password == '' then true else false
 		@setState confirmPasswordISInvalid: if confirmPassword == '' then true else false
+
+		UserActions.create email, password
 
 	render: ->
 
