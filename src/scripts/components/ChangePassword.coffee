@@ -15,13 +15,13 @@ ChangePassword = React.createClass
 		div className: 'crp-sign-up',
 			div className: 'columns content',	
 				div className: 'crp-icon-addon big',       
-					input type: 'password', placeholder: 'Old Password', ref: 'oldPassword', onChange: {@oldPasswordChange}, className: {emailValid},
+					input type: 'password', placeholder: 'Old Password', ref: 'oldPassword', onChange: {@oldPasswordChange}
 					label className: 'glyphicons envelope',
 				div className: 'crp-icon-addon big',     
-					input type: 'password', ref: 'password', placeholder: 'New Password', className: {passValid},
+					input type: 'password', ref: 'password', placeholder: 'New Password'
 					label className: 'glyphicons keys', 
 				div className: 'crp-icon-addon big',     
-					input type: 'password', ref: 'confirmPassword', placeholder: 'Confirm Password', className: {confpassValid},
+					input type: 'password', ref: 'confirmPassword', placeholder: 'Confirm Password'
 					label className: 'glyphicons keys',
 				div className: 'small-12',
 					a className: 'button small-12', onClick: {@handleSubmit}, 'SIGN UP'
