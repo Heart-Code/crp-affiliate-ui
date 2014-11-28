@@ -12,7 +12,7 @@ Dashboard = React.createFactory require './components/Dashboard'
 RewardList = React.createFactory require './components/RewardList'
 AffiliateList = React.createFactory require './components/AffiliateList'
 AddPoints = React.createFactory require './components/AddPoints'
-ChangePassword = React.createFactory require '.components/ChangePassword'
+ChangePassword = React.createFactory require './components/ChangePassword'
 
 React.initializeTouchEvents(true)
 
