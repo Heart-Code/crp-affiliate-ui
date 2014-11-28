@@ -33,12 +33,4 @@ UserStore = Reflux.createStore
 	onAddPoints: ->
 		# TODO: Add points request
 
-	onChangePassword: ->
-		request
-			.patch '/user'
-			.use authorize
-			.end (res) ->
-				if res.ok
-					@trigger res.body
-
 module.exports = UserStore
