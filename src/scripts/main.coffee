@@ -12,7 +12,7 @@ Dashboard = React.createFactory require './components/Dashboard'
 RewardList = React.createFactory require './components/RewardList'
 AffiliateList = React.createFactory require './components/AffiliateList'
 AddPoints = React.createFactory require './components/AddPoints'
-RewardExchange = React.createFactory require './components/RewardExchange'
+Receipt = React.createFactory require './components/Receipt'
 
 
 React.initializeTouchEvents(true)
@@ -24,7 +24,7 @@ routes =
 			Route path: 'rewards', handler: RewardList, title: 'Rewards'
 			Route path: 'rewards/:affiliateId', name: 'rewards', handler: RewardList, title: 'Rewards'
 			Route path: 'addpoints', handler: AddPoints, title: 'Add Points'
-			Route path: 'rewardexchange', handler: RewardExchange, title: 'Reward Exchange'
+			Route path: 'receipt/:receiptId', handler: Receipt, title: 'Receipt'
 		Route path: 'login', name: 'login', handler: Login, title: 'Login'
 		Route path: 'signup', name: 'signup', handler: SignUp, title: 'Sign Up'
 		NotFoundRoute handler: NotFound

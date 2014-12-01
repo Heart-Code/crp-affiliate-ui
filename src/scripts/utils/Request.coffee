@@ -3,7 +3,7 @@ Response = request.Response
 SessionActions = require '../actions/SessionActions'
 
 config =
-	api_url: 'http://api.crp.eridlabs.com'
+	api_url: 'http://localhost:3000'
 	api_key: '546a239d5021eee0313af9d1'
 	api_secret: '7H1515A53C437'
 
