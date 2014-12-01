@@ -2,10 +2,10 @@ React = require 'react'
 Reflux = require 'reflux'
 request = require 'superagent'
 Lazy = require 'lazy.js'
-RewardListStore = React.createFactory require '../stores/RewardListStore'
-RewardActions = React.createFactory require '../actions/RewardActions'
+RewardListStore = require '../stores/RewardListStore'
+RewardActions = require '../actions/RewardActions'
 
-{div, label, input, ul, li, img, span} = React.DOM
+{div, label, input, ul, li, img, span, a} = React.DOM
 
 RewardList = React.createClass
 	mixins: [Reflux.ListenerMixin]
@@ -39,6 +39,8 @@ RewardList = React.createClass
 				li {},
 					img src: r.img
 					span className: "name", r.name
-					span className: "points", "+ #{r.points}"
+					div className: "points"
+						span clasName: 'points-value', "#{r.points}",
+						a className: 'button', 'buy'
 
 module.exports = RewardList

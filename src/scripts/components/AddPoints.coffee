@@ -4,7 +4,7 @@ React = require 'react'
 
 AddPoints = React.createClass
 	getInitialState: ->
-		points: 20
+		points: @props.user.points
 		error: false
 	addPoints: ->
 		code = @refs.code.getDOMNode().value
@@ -23,6 +23,7 @@ AddPoints = React.createClass
 	render: ->
 		if @state.error then errorMessage = div className: 'crp-alert-error', 'Invalid code'
 		div className: 'crp-search',
+			span className: 'promotional', 'Current Points'
 			div className: 'crp-points',
 				span className: 'points', "#{@state.points}pts"
 			errorMessage
