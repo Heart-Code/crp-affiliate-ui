@@ -5,6 +5,7 @@ UserActions = Reflux.createActions [
 	'edit'
 	'create'
 	'addPoints'
+	'changePassword'
 ]
 
 module.exports = UserActions
