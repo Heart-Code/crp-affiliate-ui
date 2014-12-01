@@ -16,7 +16,6 @@ RewardList = React.createClass
 		@setState {rewards}
 	componentDidMount: ->
 		@listenTo RewardListStore, @onRewardListChange
-		console.log this
 		if @props.params.affiliateId
 			RewardActions.loadFromAffiliate @props.params.affiliateId
 		else
