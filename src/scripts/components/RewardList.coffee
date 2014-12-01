@@ -2,8 +2,8 @@ React = require 'react'
 Reflux = require 'reflux'
 request = require 'superagent'
 Lazy = require 'lazy.js'
-RewardListStore = React.createFactory require '../stores/RewardListStore'
-RewardActions = React.createFactory require '../actions/RewardActions'
+RewardListStore = require '../stores/RewardListStore'
+RewardActions = require '../actions/RewardActions'
 
 {div, label, input, ul, li, img, span} = React.DOM
 
@@ -16,7 +16,6 @@ RewardList = React.createClass
 		@setState {rewards}
 	componentDidMount: ->
 		@listenTo RewardListStore, @onRewardListChange
-		console.log this
 		if @props.params.affiliateId
 			RewardActions.loadFromAffiliate @props.params.affiliateId
 		else
