@@ -19,7 +19,7 @@ EditProfile = React.createClass
 		phone = e.target.value
 		@setState isPhoneValid: phone isnt ''
 	handleChangePassword: ->
-		@transitionTo 'changepassword'
+		@transitionTo '/changepassword'
 	handleSubmit: ->
 		if @isFormValid()
 			console.log('yo')
@@ -31,6 +31,7 @@ EditProfile = React.createClass
 
 		cx = React.addons.classSet
 
+		
 		# Checking the state of the inputs to define the classes of the form elements
 		
 		<div className="crp-edit-profile center small-12 columns">
