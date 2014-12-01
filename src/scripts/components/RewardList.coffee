@@ -16,6 +16,7 @@ RewardList = React.createClass
 		@setState {rewards}
 	componentDidMount: ->
 		@listenTo RewardListStore, @onRewardListChange
+		console.log this
 		if @props.params.affiliateId
 			RewardActions.loadFromAffiliate @props.params.affiliateId
 		else
@@ -38,8 +39,7 @@ RewardList = React.createClass
 				li {},
 					img src: r.img
 					span className: "name", r.name
-					div className: "points"
-						span clasName: 'points-value', "#{r.points}",
-						a className: 'button', 'buy'
+					div className: "points", "#{r.points}",
+						a className: 'button', 'Buy'
 
 module.exports = RewardList
