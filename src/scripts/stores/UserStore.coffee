@@ -34,15 +34,6 @@ UserStore = Reflux.createStore
 				if res.ok
 					@trigger res.body
 
-	onChangePassword: (oldPassword, newPassword) ->
-		request
-			.patch '/user'
-			.use authorize
-			.send {oldPassword, newPassword}
-			.end (res) ->
-				if res.ok
-					@trigger res.body
-
 	onAddPoints: (code) ->
 		if not code? or code.trim() is '' then return
 		request
