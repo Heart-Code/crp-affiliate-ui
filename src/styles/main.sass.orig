@@ -63,8 +63,5 @@ $alert-color: #c24f56
 @import components/BottomMenu
 @import components/AffiliateList
 @import components/AddPoints
-<<<<<<< HEAD
 @import components/RewardExchange
-=======
 @import components/ChangePassword
->>>>>>> 1c384a37f12eda4a598de569c9b1fad07ab3393f

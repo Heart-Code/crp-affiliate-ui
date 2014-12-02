@@ -3,6 +3,7 @@ Reflux = require 'reflux'
 ReceiptStore = require '../stores/ReceiptStore'
 ReceiptActions = require '../actions/ReceiptActions'
 {LoggedInMixin} = require '../mixins/SessionMixins'
+moment = require 'moment'
 
 {div, p, img, h2, h3, span} = React.DOM
 
@@ -26,5 +27,5 @@ Receipt = React.createClass
 					span className: 'points', '-' + @state.receipt.reward.value + ' pts'
 				h3 className: 'crp-reward-code', 'Code - ' + @state.receipt.code
 				p, 'Expires'
-				p className: 'crp-reward-expires', @state.receipt.reward.expires
+				p className: 'crp-reward-expires', moment(@state.receipt.reward.expires).format('MM-DD-YYYY')  
 module.exports = Receipt
