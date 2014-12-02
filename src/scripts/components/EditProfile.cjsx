@@ -5,8 +5,8 @@ Reflux = require 'reflux'
 
 EditProfile = React.createClass
 	mixins: [Navigation]
-	handleBack: ->
-		@transitionTo 'login'
+	getInitialState: ->
+		error: 0
 	isFormValid: ->
 		@state.isNameValid and @state.isLastNameValid and @state.isPhoneValid
 	nameOnChange: (e) ->
@@ -21,8 +21,7 @@ EditProfile = React.createClass
 	handleChangePassword: ->
 		@transitionTo '/changepassword'
 	handleSubmit: ->
-		if @isFormValid()
-			console.log('yo')
+		#if @isFormValid()
 	render: ->
 
 		profile = @props.user

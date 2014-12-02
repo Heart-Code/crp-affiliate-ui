@@ -37,7 +37,5 @@ AddPoints = React.createClass
 			errorMessage
 			input type: 'text', id: 'search-string', placeholder: 'Add Points', ref: 'code'
 			a className: 'button small-12', onClick: @addPoints, 'AddPoints'
-				
-
-
+			
 module.exports = AddPoints

@@ -42,7 +42,10 @@ SignUp = React.createClass
 		cx = React.addons.classSet
 
 		# Checking the state of the inputs to define the classes of the form elements
-		
+		emailClasses = cx 'red-border': @state.isEmailValid is false
+		passwordClasses = cx 'red-border': @state.isPasswordValid is false
+		cPasswordClasses = cx 'red-border': @state.isCPasswordValid is false
+		signUpBtnClasses = cx 'invalid-button': !@isFormValid()
 
 		if @state.error is ValidationError.RepeatedEmail
 			errorMessage = <p className="crp-alert-error">The email you are trying to register is already in use.</p>
