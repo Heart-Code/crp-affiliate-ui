@@ -20,9 +20,9 @@ ProfileAside = React.createClass
 			<div className="crp-profile-fullname">{profile.name.full ? profile.email}</div>
 			<div className="crp-profile-points">{profile.points} points</div>
 			<ul className="off-canvas-list">
-				<li><Link to="/addpoints"><i className="glyphicons gift"></i>Add Points</Link></li>
-				<li><a href="#"><i className="glyphicons gift"></i>Rewards Exchanged</a></li>
-				<li><a href="#"><i className="glyphicons user"></i>Edit Profile</a></li>
+				<li><Link to="/addpoints"><i className="glyphicons plus"></i>Add Points</Link></li>
+				<li><a href="#"><i className="glyphicons notes"></i>Receipts</a></li>
+				<li><Link to="/editprofile"><i className="glyphicons user"></i>Edit Profile</Link></li>
 				<li><a href="#" onClick={@handleLogOut}><i className="glyphicons lock"></i> Log Out</a></li>
 			</ul>
 		</div>
