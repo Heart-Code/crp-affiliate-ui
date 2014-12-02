@@ -31,7 +31,7 @@ EditProfile = React.createClass
 
 		cx = React.addons.classSet
 
-		
+		nameClasess = cx 'red-border': @state.isNameValid is false
 		# Checking the state of the inputs to define the classes of the form elements
 		
 		<div className="crp-edit-profile center small-12 columns">
