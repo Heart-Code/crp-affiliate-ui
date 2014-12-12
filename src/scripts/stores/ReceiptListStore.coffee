@@ -1,19 +1,21 @@
 Reflux = require 'reflux'
+Lazy = require 'lazy.js'
 {request, authorize, prefix} = require '../utils/Request'
 ReceiptActions = require '../actions/ReceiptActions'
 
-ReceiptStore = Reflux.createStore
+ReceiptListStore = Reflux.createStore
 	init: ->
-		@receipt = {}
+		@receipts = []
 
 		@listenToMany ReceiptActions
 
-	onLoadReceipt: (receiptId) ->
+	onLoadAll: ->
 		request
-			.get "/receipt/#{receiptId}"
+			.get "/receipts/"
 			.use authorize
 			.end (res) =>
 				if res.ok
-					@trigger res.body.receipt
+					@receipts = res.body
+					@trigger @receipts
 
-module.exports = ReceiptStore
+module.exports = ReceiptListStore

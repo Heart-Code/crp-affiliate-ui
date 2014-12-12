@@ -23,9 +23,8 @@ Receipt = React.createClass
 			h2 className: 'crp-reward-title', @state.receipt.reward.name
 			p className: 'crp-reward-description', @state.receipt.reward.description
 			div className: 'row crp-reward-exchange text-center',
-				div className: 'crp-exchange-points',
-					span className: 'points', '-' + @state.receipt.reward.value + ' pts'
-				h3 className: 'crp-reward-code', 'Code - ' + @state.receipt.code
+				img src: 'img/barcode.png', className: 'barcode-placeholder'
+				h3 className: 'crp-reward-code', @state.receipt.code
 				p, 'Expires'
 				p className: 'crp-reward-expires', moment(@state.receipt.reward.expires).format('MM-DD-YYYY')  
 module.exports = Receipt

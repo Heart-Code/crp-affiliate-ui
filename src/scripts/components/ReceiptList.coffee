@@ -16,6 +16,7 @@ RewardList = React.createClass
 		@setState {receipts}
 	componentDidMount: ->
 		@listenTo ReceiptListStore, @onReceiptListChange
+		ReceiptActions.loadAll()
 	handleChange: (e) ->
 		@setState searchString: e.target.value
 	render: ->
@@ -26,14 +27,14 @@ RewardList = React.createClass
 			receipts = Lazy(receipts).filter (r) -> r.name.toLowerCase().match searchString
 			receipts = receipts.toArray()
 
-		div className: 'receipts',
+		div className: 'rewards',
 			div className: 'crp-search',
 				input type: 'text', id: 'search-string', placeholder: 'Search Receipts', value: @state.searchString, onChange: @handleChange
 				span className: 'promotional', 'Bought rewards'
 			ul null, receipts.map (r) ->
 				li {},
-					img src: r.reward.img
+					img src: r.reward.picture
 					span className: "name", r.reward.name
-						a className: 'button', 'View'
+						a href: "#/receipt/#{r.code}", className: 'button view', 'View'
 
 module.exports = RewardList

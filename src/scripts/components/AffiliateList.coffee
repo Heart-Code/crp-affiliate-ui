@@ -18,7 +18,7 @@ AffiliateItem = React.createClass
 
 		li className: 'crp-affiliates-item', onClick: @handleClick,
 			div className: 'crp-icon-next big',
-				img src: "img/#{affiliate.img}"
+				img src: "#{affiliate.picture}"
 				div className: 'glyphicons chevron-right'
 			div className: 'crp-container',
 				p className: 'crp-affiliate-name', affiliate.name

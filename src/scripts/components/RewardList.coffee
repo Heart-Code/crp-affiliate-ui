@@ -2,19 +2,28 @@ React = require 'react'
 Reflux = require 'reflux'
 request = require 'superagent'
 Lazy = require 'lazy.js'
+{Navigation} = require 'react-router'
 RewardListStore = require '../stores/RewardListStore'
+RewardBuyStore = require '../stores/RewardBuyStore'
 RewardActions = require '../actions/RewardActions'
 
 {div, label, input, ul, li, img, span, a} = React.DOM
 
 
 RewardItem = React.createClass
+	mixins: [Reflux.listenTo(RewardBuyStore, 'onBuyReward'), Navigation]
 	getInitialState: ->
 		expand: false
 		expire: '2014/12/13'
 
 	onExpand: ->
 		@setState expand: !@state.expand
+
+	handleBuy: ->
+		RewardActions.buy @props.r._id
+
+	onBuyReward: (receipt) ->
+		@transitionTo "/receipt/#{receipt.code}"
 
 	render: ->	
 		r = @props.r
@@ -23,17 +32,14 @@ RewardItem = React.createClass
 			'expand': @state.expand
 
 		li className: classes,
-					img src: r.img
+					img src: r.picture
 					span className: "name", r.name
-					div className: "points", "#{r.points}",
+					div className: "points", "#{r.value}",
 						a className: '', onClick: @onExpand, '...'
 					span className: 'expire', "Expire Date: #{@state.expire}"
 					span className: 'description', 'Lorem ipsum dolor sit amet, 
 						consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-					a className: 'button small-12 buy', 'Buy'	
-
-
-
+					a className: 'button small-12 buy', onClick: @handleBuy, 'Buy'
 
 RewardList = React.createClass
 	mixins: [Reflux.ListenerMixin]
@@ -66,7 +72,5 @@ RewardList = React.createClass
 				input type: 'text', id: 'search-string', placeholder: 'Search Rewards', value: @state.searchString, onChange: @handleChange
 				span className: 'promotional', 'Take a look to our latest Rewards'
 			ul null, rewards.map (r) -> RewardItem { r }
-			
-			
 
 module.exports = RewardList
