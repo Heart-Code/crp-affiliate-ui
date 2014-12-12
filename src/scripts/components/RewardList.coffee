@@ -30,6 +30,8 @@ RewardItem = React.createClass
 					span className: 'expire', "Expire Date: #{@state.expire}"
 					span className: 'description', 'Lorem ipsum dolor sit amet, 
 						consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+					a className: 'button small-12 buy', 'Buy'	
+
 
 
 
