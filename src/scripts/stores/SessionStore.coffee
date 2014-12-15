@@ -17,7 +17,7 @@ SessionStore = Reflux.createStore
 	onLogin: (username, password) ->
 		request
 			.post '/oauth2/token'
-			.use login username, password
+			.use login username.toLowerCase().trim(), password
 			.end (res) =>
 				if res.ok
 					@setAccessToken res.body.access_token
